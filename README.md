@@ -76,3 +76,18 @@ Here are explanations of some important args,
 
 Normally, other args can be set to default values. See ``args.py`` for more details about argus if needed.
 
+```
+@inproceedings{SuperRL,
+ author = {Hou, Jiewen and
+           Wu, Tianxing and
+           Wang, Jingting and
+           Wang, Shuang and
+           Qi, Guilin},
+ title = {Supervised Relational Learning with Selective Neighbor Entities for Few-Shot Knowledge Graph Completion},
+ booktitle = {{ISWC}},
+ pages = {144--161},
+ publisher = {Springer Nature Switzerland},
+ date = {2025},
+}
+```
+

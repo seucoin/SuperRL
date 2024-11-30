@@ -1,21 +1,22 @@
 # Supervised Relational Learning with Selective Neighbor Entities for Few-Shot Knowledge Graph Completion
 Source code for ISWC-2024 paper: Supervised Relational Learning with Selective Neighbor Entities for Few-Shot Knowledge Graph Completion
 
-Few-shot Knowledge Graph (KG) completion is a focus of current research, where each task aims at querying unseen facts of a relation given limited reference triplets. However, existing works overlook two categories of neighbor entities relevant to few-shot relations, resulting in ineffective relational learning for few-shot KG completion. In this work, we propose a supervised relational learning model (SuperRL) with these crucial neighbor entities, where we design a cascaded embedding enhancement network to capture directly and indirectly relevant entities for few-shot relations and provide supervision signals by jointly performing dual contrastive learning and metric learning. Evaluation in link prediction on two public datasets shows that our method achieves new state-of-the-art results with different few-shot sizes.
+Few-shot Knowledge Graph (KG) completion is a focus of current research, where each task aims at querying unseen facts of a relation given limited reference triplets. However, existing works overlook two categories of neighbor entities relevant to few-shot relations, resulting in embeddings results insufficient to high-quality few-shot KG completion. In this work, we propose a supervised relational learning model (SuperRL) with these crucial neighbor entities. Our SuperRL contains the following components: 1) Cascaded Embedding Enhancement Network. Multiple enhancement layers consisting of different neighbor entity encoders are used for generating entity pair embeddings enriched with the information of both directly relevant entities and indirectly relevant entities for few-shot relations 2) Supervised Relational Learning Module. Dual contrastive learning and metric learning provide different supervision signals with entity pair embeddings for relational learning.
 
 ![本地图片](./figure/Model.png)
 
-# Requirements
+## Requirements
 
 **Step1** Create a virtual environment using `Anaconda` and enter it.
-**Step1** Installing the following packages：
+
+**Step2** Installing the following packages：
 ```
 python 3.6
 Pytorch == 1.13.1
 CUDA: 11.6
 ```
 
-# Datasets
+## Datasets
 
 We adopt Nell-One and Wiki-One datasets to evaluate our model, SuperRL.
 The orginal datasets and pretrain embeddings are provided from [xiong's repo](https://github.com/xwhan/One-shot-Relational-Learning). 
@@ -26,44 +27,63 @@ The pre-trained embeddings can be downloaded from [Nell embeddings](https://driv
 Note that all these files were provided by xiong and we just select what we need here. 
 All the dataset files and the pre-trained TransE embeddings should be put into the directory ./data/NELL and ./data/Wiki, respectively.
 
-# How to run
+| Dataset   | #Entities  | #Relations | #Triplets  | #Tasks |
+| --------- | ---------- | ---------- | ---------- | ------ |
+| Nell-One  | 68,545     | 358        | 181,109    | 67     |
+| Wiki-One  | 4,838,244  | 822        | 5,859,240  | 183    |
+
+## Model Training
 For optimal performance, please train SuperRL as follows:
 
-#### Nell-One
-3-shot
+### Nell-One
+3-shot setting:
 ```
-python main.py --fine_tune --num_layers 2 --lamda 0.06 --lr 8e-5 --few 3 --early_stop 10 --prefix SuperRL_c1n1-2_3_NELL
-```
-
-5-shot
-```
-python main.py --fine_tune --num_layers 2 --lamda 0.09 --lr 8e-5 --few 5 --early_stop 10 --prefix SuperRL_c1n1-2_5_NELL
+python main.py --fine_tune --num_layers 2 --lamda 0.06 --lr 8e-5 --few 3 --early_stop 10 --prefix SuperRL_3_NELL
 ```
 
-#### Wiki-One
-3-shot
+5-shot setting:
 ```
-python main.py --datapath "data/Wiki/" --num_layers 8 --lamda 0.06 --lr 2e-4 --few 3 --early_stop 10 --prefix new_final_c1n1-8_3_Wiki
+python main.py --fine_tune --num_layers 2 --lamda 0.09 --lr 8e-5 --few 5 --early_stop 10 --prefix SuperRL_5_NELL
 ```
 
-5-shot
+### Wiki-One
+3-shot setting:
 ```
-python main.py --datapath "data/Wiki/" --num_layers 8 --lamda 0.09 --lr 2e-4 --few 5 --early_stop 10 --prefix new_final_c1n1-8_5_Wiki
+python main.py --datapath "data/Wiki/" --num_layers 8 --lamda 0.06 --lr 2e-4 --few 3 --early_stop 10 --prefix SuperRL_3_Wiki
 ```
+
+5-shot setting:
+```
+python main.py --datapath "data/Wiki/" --num_layers 8 --lamda 0.09 --lr 2e-4 --few 5 --early_stop 10 --prefix SuperRL_5_Wiki
+```
+
+## Model Testing
 
 To test the trained models, please run as follows:
 
-#### Nell-One
+### Nell-One
+3-shot setting:
+```
+python main.py --test --num_layers 2 --lr 8e-5 --prefix SuperRL_3_NELL
+```
 
+5-shot setting:
 ```
-python main.py --test --num_layers 3 --lr 8e-5 --few 5 --prefix new_final_c1n1-3_5_NELL
+python main.py --test --num_layers 2 --lr 8e-5 --prefix SuperRL_5_NELL
 ```
 
-#### Wiki-One
+### Wiki-One
+3-shot setting:
+```
+python main.py --test --datapath "data/Wiki/" --num_layers 8 --lr 2e-4 --prefix SuperRL_3_Wiki
+```
 
+5-shot setting:
 ```
-python main.py --test --datapath "data/Wiki/" --num_layers 6 --lr 2e-4 --prefix new_final_c1n1-6_5_Wiki
+python main.py --test --datapath "data/Wiki/" --num_layers 8 --lr 2e-4 --prefix SuperRL_5_Wiki
 ```
+
+## Argument Descriptions
 
 Here are explanations of some important args,
 
@@ -77,8 +97,10 @@ Here are explanations of some important args,
 --device:    "the GPU number"
 ```
 
-Normally, other args can be set to default values. See ``args.py`` for more details about argus if needed.
+Normally, other args can be set to default values. See ``args.py`` for more details about args.
 
+## Citation
+Please cite our paper if you use SuperRL in your work.
 ```
 @inproceedings{SuperRL,
  author = {Hou, Jiewen and

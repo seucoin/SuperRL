@@ -1,5 +1,5 @@
-# SuperRL
-Source code for ISWC2024 paper: Supervised Relational Learning with Selective Neighbor Entities for Few-Shot Knowledge Graph Completion(https://github.com/FKGC/SuperRL)
+# Supervised Relational Learning with Selective Neighbor Entities for Few-Shot Knowledge Graph Completion
+Source code for ISWC-2024 paper: Supervised Relational Learning with Selective Neighbor Entities for Few-Shot Knowledge Graph Completion
 
 Few-shot Knowledge Graph (KG) completion is a focus of current research, where each task aims at querying unseen facts of a relation given limited reference triplets. However, existing works overlook two categories of neighbor entities relevant to few-shot relations, resulting in ineffective relational learning for few-shot KG completion. In this work, we propose a supervised relational learning model (SuperRL) with these crucial neighbor entities, where we design a cascaded embedding enhancement network to capture directly and indirectly relevant entities for few-shot relations and provide supervision signals by jointly performing dual contrastive learning and metric learning. Evaluation in link prediction on two public datasets shows that our method achieves new state-of-the-art results with different few-shot sizes.
 
@@ -7,11 +7,12 @@ Few-shot Knowledge Graph (KG) completion is a focus of current research, where 
 
 # Requirements
 
+**Step1** Create a virtual environment using `Anaconda` and enter it.
+**Step1** Installing the following packages：
 ```
 python 3.6
 Pytorch == 1.13.1
 CUDA: 11.6
-GPU: V100
 ```
 
 # Datasets

@@ -3,6 +3,8 @@ Source code for ISWC2024 paper: Supervised Relational Learning with Selective Ne
 
 Few-shot Knowledge Graph (KG) completion is a focus of current research, where each task aims at querying unseen facts of a relation given limited reference triplets. However, existing works overlook two categories of neighbor entities relevant to few-shot relations, resulting in ineffective relational learning for few-shot KG completion. In this work, we propose a supervised relational learning model (SuperRL) with these crucial neighbor entities, where we design a cascaded embedding enhancement network to capture directly and indirectly relevant entities for few-shot relations and provide supervision signals by jointly performing dual contrastive learning and metric learning. Evaluation in link prediction on two public datasets shows that our method achieves new state-of-the-art results with different few-shot sizes.
 
+![本地图片](./figure/Model2.pdf)
+
 # Requirements
 
 ```

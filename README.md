@@ -9,7 +9,7 @@ Few-shot Knowledge Graph (KG) completion is a focus of current research, where 
 
 **Step1** Create a virtual environment using `Anaconda` and enter it.
 
-**Step2** Installing the following packages：
+**Step2** Installing the following packages in the virtual environment：
 ```
 python 3.6
 Pytorch == 1.13.1
@@ -18,14 +18,7 @@ CUDA: 11.6
 
 ## Datasets
 
-We adopt Nell-One and Wiki-One datasets to evaluate our model, SuperRL.
-The orginal datasets and pretrain embeddings are provided from [xiong's repo](https://github.com/xwhan/One-shot-Relational-Learning). 
-For convenience, the datasets can be downloaded from [Nell data](https://sites.cs.ucsb.edu/~xwhan/datasets/nell.tar.gz)
-and [Wiki data](https://sites.cs.ucsb.edu/~xwhan/datasets/wiki.tar.gz). 
-The pre-trained embeddings can be downloaded from [Nell embeddings](https://drive.google.com/file/d/1XXvYpTSTyCnN-PBdUkWBXwXBI99Chbps/view?usp=sharing)
- and [Wiki embeddings](https://drive.google.com/file/d/1_3HBJde2KVMhBgJeGN1-wyvW88gRU1iL/view?usp=sharing).
-Note that all these files were provided by xiong and we just select what we need here. 
-All the dataset files and the pre-trained TransE embeddings should be put into the directory ./data/NELL and ./data/Wiki, respectively.
+We adopt Nell-One and Wiki-One datasets to evaluate our model, SuperRL. The orginal datasets and pretrain embeddings are provided from [xiong's repo](https://github.com/xwhan/One-shot-Relational-Learning). For convenience, the datasets can be downloaded from [Nell data](https://sites.cs.ucsb.edu/~xwhan/datasets/nell.tar.gz) and [Wiki data](https://sites.cs.ucsb.edu/~xwhan/datasets/wiki.tar.gz). The pre-trained embeddings can be downloaded from [Nell embeddings](https://drive.google.com/file/d/1XXvYpTSTyCnN-PBdUkWBXwXBI99Chbps/view?usp=sharing) and [Wiki embeddings](https://drive.google.com/file/d/1_3HBJde2KVMhBgJeGN1-wyvW88gRU1iL/view?usp=sharing). All the dataset files and the pre-trained embeddings should be put into the directory ./data/NELL and ./data/Wiki, respectively.
 
 | Dataset   | #Entities  | #Relations | #Triplets  | #Tasks |
 | --------- | ---------- | ---------- | ---------- | ------ |
@@ -33,7 +26,7 @@ All the dataset files and the pre-trained TransE embeddings should be put into t
 | Wiki-One  | 4,838,244  | 822        | 5,859,240  | 183    |
 
 ## Model Training
-For optimal performance, please train SuperRL as follows:
+For optimal performance, please train SuperRL according to the following instructions:
 
 ### Nell-One
 3-shot setting:
@@ -59,7 +52,7 @@ python main.py --datapath "data/Wiki/" --num_layers 8 --lamda 0.09 --lr 2e-4 --f
 
 ## Model Testing
 
-To test the trained models, please run as follows:
+To test the trained models, please follow instructions as follows:
 
 ### Nell-One
 3-shot setting:
@@ -97,7 +90,7 @@ Here are explanations of some important args,
 --device:    "the GPU number"
 ```
 
-Normally, other args can be set to default values. See ``args.py`` for more details about args.
+Normally, other args can be set to default values. Please refer to ``args.py`` for more details about args.
 
 ## Citation
 Please cite our paper if you use SuperRL in your work.

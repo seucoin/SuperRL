@@ -102,10 +102,10 @@ Please cite our paper if you use SuperRL in your work.
                Wang, Shuang and
                Qi, Guilin},
   title     = {Supervised Relational Learning with Selective Neighbor Entities for Few-Shot Knowledge Graph Completion},
-  booktitle = {{ISWC}},
+  booktitle = {Proc. of ISWC, Part I},
   pages     = {144--161},
   publisher = {Springer Nature Switzerland},
-  date      = {2025},
+  date      = {2024}
 }
 ```
 

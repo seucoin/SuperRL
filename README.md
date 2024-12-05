@@ -57,23 +57,23 @@ To test the trained models, please follow instructions as follows:
 ### Nell-One
 3-shot setting:
 ```
-python main.py --test --num_layers 2 --lr 8e-5 --prefix SuperRL_3_NELL
+python main.py --test --num_layers 2 --lamda 0.06 --lr 8e-5 --prefix SuperRL_3_NELL
 ```
 
 5-shot setting:
 ```
-python main.py --test --num_layers 2 --lr 8e-5 --prefix SuperRL_5_NELL
+python main.py --test --num_layers 2 --lamda 0.09 --lr 8e-5 --prefix SuperRL_5_NELL
 ```
 
 ### Wiki-One
 3-shot setting:
 ```
-python main.py --test --datapath "data/Wiki/" --num_layers 8 --lr 2e-4 --prefix SuperRL_3_Wiki
+python main.py --test --datapath "data/Wiki/" --num_layers 8 --lamda 0.06 --lr 2e-4 --prefix SuperRL_3_Wiki
 ```
 
 5-shot setting:
 ```
-python main.py --test --datapath "data/Wiki/" --num_layers 8 --lr 2e-4 --prefix SuperRL_5_Wiki
+python main.py --test --datapath "data/Wiki/" --num_layers 8 --lamda 0.09 --lr 2e-4 --prefix SuperRL_5_Wiki
 ```
 
 ## Argument Descriptions

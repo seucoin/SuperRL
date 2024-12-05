@@ -15,7 +15,7 @@ import time
 from collections import defaultdict
 from dataloader import train_generate
 import random
-from SuperRL import MRL  # ************************
+from SuperRL import SuperRL  # ************************
 import numpy as np
 import json
 torch.set_num_threads(1)
@@ -98,22 +98,22 @@ class Model_Run(object):
 
         self.use_pretrain = use_pretrain
 
-        self.CIAN = CIAN(args, self.num_symbols, self.embedding_size,
+        self.SuperRL = SuperRL(args, self.num_symbols, self.embedding_size,
                                  self.symbol2vec, use_pretrain=self.use_pretrain, finetune=args.fine_tune)
-        self.CIAN.to(args.device)
+        self.SuperRL.to(args.device)
 
         self.batch_nums = 0
 
-        self.ignored_parameters = list(map(id, self.CIAN.entity_encoder.symbol_emb.parameters()))
-        self.base_params = filter(lambda p: id(p) not in self.ignored_parameters, self.CIAN.parameters())
+        self.ignored_parameters = list(map(id, self.SuperRL.entity_encoder.symbol_emb.parameters()))
+        self.base_params = filter(lambda p: id(p) not in self.ignored_parameters, self.SuperRL.parameters())
 
         # self.optim = optim.Adam([
         #     {'params': self.base_params},
-        # {'params': self.CIAN.entity_encoder.symbol_emb.parameters(), 'lr:': args.symbol_embed_lr}],
+        # {'params': self.SuperRL.entity_encoder.symbol_emb.parameters(), 'lr:': args.symbol_embed_lr}],
         #     lr=args.base_lr,  weight_decay=self.weight_decay
         # )
 
-        self.parameters = filter(lambda p: p.requires_grad, self.CIAN.parameters())
+        self.parameters = filter(lambda p: p.requires_grad, self.SuperRL.parameters())
 
 
         self.optim = optim.Adam(self.parameters, lr=args.lr, weight_decay=self.weight_decay)
@@ -298,14 +298,14 @@ class Model_Run(object):
     def save(self, path=None):
         if not path:
             path = self.save_path
-        torch.save(self.CIAN.state_dict(), path)
+        torch.save(self.SuperRL.state_dict(), path)
 
     def load(self, path=None):
         if path:
-            self.CIAN.load_state_dict(torch.load(path))
+            self.SuperRL.load_state_dict(torch.load(path))
 
         else:
-            self.CIAN.load_state_dict(torch.load(self.save_path))
+            self.SuperRL.load_state_dict(torch.load(self.save_path))
 
 
 
@@ -336,9 +336,9 @@ class Model_Run(object):
             query = torch.LongTensor(query).to(device=args.device)  # (batch, 2)
             false = torch.LongTensor(false).to(device=args.device)  # (batch, 2)
 
-            self.CIAN.train()
+            self.SuperRL.train()
 
-            positive_score, negative_score, loss_info = self.CIAN(support, support_meta,
+            positive_score, negative_score, loss_info = self.SuperRL(support, support_meta,
                                                            query, query_meta,
                                                            false, false_meta, is_train=True)
 
@@ -400,7 +400,7 @@ class Model_Run(object):
     def eval(self, mode='dev'):
 
         with torch.no_grad():
-            self.CIAN.eval()
+            self.SuperRL.eval()
 
             symbol2id = self.symbol2id
             few = self.few
@@ -450,7 +450,7 @@ class Model_Run(object):
                     query = torch.LongTensor(query_pairs).to(device=args.device)  # (few, 18)
                     query_meta = self.get_meta(query_left, query_right)
 
-                    scores, _, _ = self.CIAN(support, support_meta,
+                    scores, _, _ = self.SuperRL(support, support_meta,
                                               query, query_meta, false=None, false_meta=None, is_train=False)
 
                     scores.detach()

@@ -14,9 +14,9 @@ from Aggerator import *
 from info_nce import *
 
 
-class MRL(nn.Module):
+class SuperRL(nn.Module):
     def __init__(self, args, num_symbols, embedding_size, embed, use_pretrain, finetune):
-        super(CIAN, self).__init__()
+        super(SuperRL, self).__init__()
 
         self.args = args
         self.entity_encoder = Attention_Module(self.args, embed=embed, num_symbols = num_symbols,
